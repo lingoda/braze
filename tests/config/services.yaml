@@ -1,0 +1,54 @@
+services:
+    _defaults:
+        public: true
+        autowire: true
+        autoconfigure: true
+
+    test.serializer: '@serializer'
+    test.braze_client: '@lingoda_braze.client'
+    test.braze_api: '@lingoda_braze.api'
+    test.delta_in_memory_store: '@lingoda_braze.delta.in_memory_store'
+
+    Lingoda\BrazeBundle\Test\MockClientCallback:
+        arguments:
+            $baseUri: '%braze_base_uri%'
+
+    # TODO remove once migrated to Symfony >= 5.2
+    test.mock.http_client:
+        class: Symfony\Component\HttpClient\MockHttpClient
+        decorates: braze.client
+        decoration_priority: -10
+        arguments:
+            - '@Lingoda\BrazeBundle\Test\MockClientCallback'
+            - '%braze_base_uri%'
+
+    test.mock.braze_api_users_endpoint:
+        class: Lingoda\BrazeBundle\Api\Endpoint\Users
+        arguments:
+            - '@test.mock.braze_client'
+            - '@lingoda_braze.delta.user_attributes_delta_resolver'
+
+    test.mock.braze_api_messaging_endpoint:
+        class: Lingoda\BrazeBundle\Api\Endpoint\Messaging
+        arguments:
+            - '@test.mock.braze_client'
+
+    test.mock.braze_api_export_endpoint:
+        class: Lingoda\BrazeBundle\Api\Endpoint\Export
+        arguments:
+            - '@test.mock.braze_client'
+
+    test.mock.braze_api:
+        class: Lingoda\BrazeBundle\Api\BrazeApi
+        arguments:
+            - '@test.mock.braze_api_users_endpoint'
+            - '@test.mock.braze_api_messaging_endpoint'
+            - '@test.mock.braze_api_export_endpoint'
+
+    test.mock.braze_client:
+        class: Lingoda\BrazeBundle\Api\BrazeClient
+        arguments:
+            - '@logger'
+            - '@lingoda_braze.serializer'
+            - '@lingoda_braze.response.processor'
+            - '@test.mock.http_client'

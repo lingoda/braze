@@ -1,0 +1,28 @@
+parameters:
+    mock_api_key: '3CA35601-4E9C-46B4-BFFC-4CC4BF55799A'
+    mock_app_id: '01B82BBA-7FA2-4A87-A6A8-8E7F39FF0EF4'
+    api_key: '%env(string:default:mock_api_key:LINGODA__BRAZE_API_KEY)%'
+    app_id: '%env(string:default:mock_app_id:LINGODA__BRAZE_APP_ID)%'
+    http_client_max_retries: 3
+    braze_base_uri: !php/const Lingoda\BrazeBundle\Api\BrazeClientInterface::DEFAULT_BASE_URI
+
+framework:
+    secret: 's3cr3t'
+    serializer:
+        enable_annotations: true
+
+    http_client:
+        scoped_clients:
+            braze.client:
+                scope: https://rest\.fra-01\.braze\.eu
+                base_uri: https://rest.fra-01.braze.eu
+                auth_bearer: '%api_key%'
+                headers:
+                    Accept: 'application/json'
+                    Content-Type: 'application/json'
+
+# TODO use mock_response_factory once migrated to Symfony >= 5.2 and remove test.http_client_mock
+#        mock_response_factory: Lingoda\BrazeBundle\Test\MockClientCallback
+
+lingoda_braze:
+    api_key: '%api_key%'

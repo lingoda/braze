@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:framework="http://symfony.com/schema/dic/symfony"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd
+        http://symfony.com/schema/dic/symfony
+        https://symfony.com/schema/dic/symfony/symfony-1.0.xsd">
+
+    <services>
+        <service id="Lingoda\BrazeBundle\Api\BrazeApiInterface" alias="lingoda_braze.api" />
+        <service id="Lingoda\BrazeBundle\Api\BrazeSerializerInterface" alias="lingoda_braze.serializer" />
+        <service id="Lingoda\BrazeBundle\Api\BrazeClientInterface" alias="lingoda_braze.client" />
+        <service id="Lingoda\BrazeBundle\Api\Response\ApiResponseProcessorInterface" alias="lingoda_braze.response.processor" />
+        <service id="Lingoda\BrazeBundle\Api\Delta\StorageInterface" alias="lingoda_braze.delta.in_memory_store" />
+
+        <service id="lingoda_braze.api" class="Lingoda\BrazeBundle\Api\BrazeApi">
+            <argument type="service" id="lingoda_braze.endpoint.users"/>
+            <argument type="service" id="lingoda_braze.endpoint.messaging"/>
+            <argument type="service" id="lingoda_braze.endpoint.export"/>
+        </service>
+        <service id="lingoda_braze.default_http_client" class="Lingoda\BrazeBundle\Api\BrazeHttpClientFactory">
+            <factory class="Lingoda\BrazeBundle\Api\BrazeHttpClientFactory" method="create"/>
+            <argument></argument> <!-- Will be filled in with api_key dynamically -->
+            <argument></argument> <!-- Will be filled in with base_uri dynamically -->
+            <argument></argument> <!-- Will be filled in with max_retries dynamically -->
+        </service>
+        <service id="lingoda_braze.client" class="Lingoda\BrazeBundle\Api\BrazeClient">
+            <argument type="service" id="logger"></argument>
+            <argument type="service" id="Lingoda\BrazeBundle\Api\BrazeSerializerInterface"></argument>
+            <argument type="service" id="Lingoda\BrazeBundle\Api\Response\ApiResponseProcessorInterface"></argument>
+            <argument></argument> <!-- Will be filled in with http client dynamically -->
+        </service>
+        <service id="lingoda_braze.response.processor" class="Lingoda\BrazeBundle\Api\Response\ApiResponseProcessor">
+            <argument type="service" id="Symfony\Component\Serializer\SerializerInterface"></argument>
+        </service>
+        <service id="lingoda_braze.identifier.normalizer" class="Lingoda\BrazeBundle\Serializer\Normalizer\IdentifierNormalizer">
+            <tag name="serializer.normalizer" />
+        </service>
+        <service id="lingoda_braze.carbon.normalizer" class="Lingoda\BrazeBundle\Serializer\Normalizer\CarbonNormalizer">
+            <tag name="serializer.normalizer" />
+        </service>
+        <service id="lingoda_braze.serializer" class="Lingoda\BrazeBundle\Api\BrazeSerializer">
+            <argument type="service" id="Symfony\Component\Serializer\SerializerInterface" />
+        </service>
+
+        <!-- Endpoints -->
+        <service id="lingoda_braze.endpoint.users" class="Lingoda\BrazeBundle\Api\Endpoint\Users">
+            <argument type="service" id="lingoda_braze.client"/>
+            <argument type="service" id="lingoda_braze.delta.user_attributes_delta_resolver"/>
+        </service>
+        <service id="lingoda_braze.endpoint.messaging" class="Lingoda\BrazeBundle\Api\Endpoint\Messaging">
+            <argument type="service" id="lingoda_braze.client"/>
+        </service>
+        <service id="lingoda_braze.endpoint.export" class="Lingoda\BrazeBundle\Api\Endpoint\Export">
+            <argument type="service" id="lingoda_braze.client"/>
+        </service>
+
+        <!-- Delta -->
+        <service id="lingoda_braze.delta.in_memory_store" class="Lingoda\BrazeBundle\Api\Delta\InMemoryStorage"/>
+        <service id="lingoda_braze.delta.identifier_resolver" class="Lingoda\BrazeBundle\Api\Delta\IdentifierResolver"/>
+        <service id="lingoda_braze.delta.attribute_encoder" class="Lingoda\BrazeBundle\Api\Delta\AttributeEncoder"/>
+        <service id="lingoda_braze.delta.user_attributes_delta_resolver" class="Lingoda\BrazeBundle\Api\Delta\UserAttributesDeltaResolver">
+            <argument type="service" id="Lingoda\BrazeBundle\Api\Delta\StorageInterface"/>
+            <argument type="service" id="lingoda_braze.delta.identifier_resolver"/>
+        </service>
+
+        <!-- Validators -->
+        <service id="Lingoda\BrazeBundle\Validator\Constraints\AtLeastOneOfValidator">
+            <tag name="validator.constraint_validator" />
+        </service>
+        <service id="Lingoda\BrazeBundle\Validator\Constraints\SequentiallyValidator">
+            <tag name="validator.constraint_validator" />
+        </service>
+    </services>
+</container>
