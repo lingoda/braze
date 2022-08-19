@@ -2,7 +2,6 @@
     "name": "lingoda/braze",
     "description": "Lingoda Braze Bundle",
     "type": "symfony-bundle",
-    "version": "1.0",
     "require-dev": {
         "nyholm/symfony-bundle-test": "^2.0",
         "phpspec/phpspec": "^7.2",
