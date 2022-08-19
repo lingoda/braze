@@ -1,7 +1,8 @@
-/vendor/
-/var/
-/tests/var/
-/.idea/
+vendor/
+var/
+tests/var/
+.idea/
+.phpstan-cache/
 composer.lock
 phpunit.xml
 .phpunit.result.cache
