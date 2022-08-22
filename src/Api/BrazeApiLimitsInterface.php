@@ -10,4 +10,5 @@ interface BrazeApiLimitsInterface
     public const BRAZE_TRACK_API_LIMIT = 75;
     public const BRAZE_IDENTIFY_API_LIMIT = 50;
     public const BRAZE_USER_EXPORT_LIMIT = 50;
+    public const BRAZE_USER_DELETE_LIMIT = 50;
 }
