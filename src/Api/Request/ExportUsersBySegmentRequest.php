@@ -30,12 +30,6 @@ class ExportUsersBySegmentRequest
             ->setAllowedTypes('callback_endpoint', 'string')
             ->setAllowedTypes('fields_to_export', 'string[]')
         ;
-
-        $resolver
-            ->setAllowedValues('segment_id', Validation::createIsValidCallback(
-                new NotBlank()
-            ))
-        ;
     }
 
     /**
