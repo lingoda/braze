@@ -13,15 +13,6 @@ services:
         arguments:
             $baseUri: '%braze_base_uri%'
 
-    # TODO remove once migrated to Symfony >= 5.2
-    test.mock.http_client:
-        class: Symfony\Component\HttpClient\MockHttpClient
-        decorates: braze.client
-        decoration_priority: -10
-        arguments:
-            - '@Lingoda\BrazeBundle\Test\MockClientCallback'
-            - '%braze_base_uri%'
-
     test.mock.braze_api_users_endpoint:
         class: Lingoda\BrazeBundle\Api\Endpoint\Users
         arguments:
@@ -51,4 +42,3 @@ services:
             - '@logger'
             - '@lingoda_braze.serializer'
             - '@lingoda_braze.response.processor'
-            - '@test.mock.http_client'

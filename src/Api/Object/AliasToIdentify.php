@@ -13,14 +13,10 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
  */
 class AliasToIdentify
 {
-    /**
-     * @SerializedName("external_id")
-     */
+    #[SerializedName('external_id')]
     private ExternalId $externalId;
 
-    /**
-     * @SerializedName("user_alias")
-     */
+    #[SerializedName('user_alias')]
     private UserAlias $userAlias;
 
     public function __construct(ExternalId $externalId, UserAlias $userAlias)

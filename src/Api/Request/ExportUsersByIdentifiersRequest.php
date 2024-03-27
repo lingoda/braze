@@ -9,7 +9,7 @@ use Lingoda\BrazeBundle\Api\Object\BrazeId;
 use Lingoda\BrazeBundle\Api\Object\ExternalId;
 use Lingoda\BrazeBundle\Api\Object\Traits\OptionsTrait;
 use Lingoda\BrazeBundle\Api\Object\UserAlias;
-use Lingoda\BrazeBundle\Validator\Validation;
+use Symfony\Component\Validator\Validation;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Count;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -44,11 +44,11 @@ class ExportUsersByIdentifiersRequest
         ;
 
         $resolver
-            ->setAllowedValues('external_ids', Validation::createIsValidCallback(
+            ->setAllowedValues('external_ids', Validation::createIsValidCallable(
                 new NotBlank(),
                 new Count(['min' => 0, 'max' => BrazeApiLimitsInterface::BRAZE_USER_EXPORT_LIMIT])
             ))
-            ->setAllowedValues('user_aliases', Validation::createIsValidCallback(
+            ->setAllowedValues('user_aliases', Validation::createIsValidCallable(
                 new NotBlank(),
                 new Count(['min' => 0, 'max' => BrazeApiLimitsInterface::BRAZE_USER_EXPORT_LIMIT])
             ))

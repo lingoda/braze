@@ -6,7 +6,7 @@ namespace Lingoda\BrazeBundle\Api\Object;
 
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
-use Lingoda\BrazeBundle\Validator\Validation;
+use Symfony\Component\Validator\Validation;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -42,7 +42,7 @@ class Event extends TrackableObject
         ;
 
         $resolver
-            ->setAllowedValues('name', Validation::createIsValidCallback(
+            ->setAllowedValues('name', Validation::createIsValidCallable(
                 new NotBlank()
             ))
         ;

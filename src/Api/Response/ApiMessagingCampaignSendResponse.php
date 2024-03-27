@@ -16,9 +16,7 @@ class ApiMessagingCampaignSendResponse extends ApiResponse implements OriginalRe
 {
     use OriginalResponseAwareTrait;
 
-    /**
-     * @SerializedName("dispatch_id")
-     */
+    #[SerializedName("dispatch_id")]
     private string $dispatchId;
 
     public function getDispatchId(): string

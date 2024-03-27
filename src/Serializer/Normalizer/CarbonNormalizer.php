@@ -7,14 +7,15 @@ namespace Lingoda\BrazeBundle\Serializer\Normalizer;
 use Carbon\CarbonInterface;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Exception\LogicException;
-use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-final class CarbonNormalizer implements ContextAwareNormalizerInterface
+final class CarbonNormalizer implements NormalizerInterface
 {
     public const BRAZE_DATETIME_FORMAT = 'braze_datetime_format';
 
     /**
      * {@inheritDoc}
+     * @param array<mixed> $context
      */
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
@@ -35,5 +36,15 @@ final class CarbonNormalizer implements ContextAwareNormalizerInterface
         }
 
         return $object->format((string) $context[self::BRAZE_DATETIME_FORMAT]);
+    }
+
+    /**
+     * @return array<string, bool>
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            CarbonInterface::class => true,
+        ];
     }
 }

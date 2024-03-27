@@ -17,7 +17,7 @@ abstract class SerializationTestCase extends KernelTestCase
         parent::setUp();
         self::bootKernel();
 
-        $serializer = self::$container->get('test.serializer');
+        $serializer =self::getContainer()->get('test.serializer');
         self::assertInstanceOf(SerializerInterface::class, $serializer);
 
         $this->serializer = $serializer;

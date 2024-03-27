@@ -16,7 +16,7 @@ trait MockClientTrait
     protected function setMockClientResponses(array $responses): void
     {
         /** @var MockClientCallback $mockClientCallback */
-        $mockClientCallback = self::$container->get(MockClientCallback::class);
+        $mockClientCallback =self::getContainer()->get(MockClientCallback::class);
         $mockClientCallback->setResponses($responses);
     }
 

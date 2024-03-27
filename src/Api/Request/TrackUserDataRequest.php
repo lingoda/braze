@@ -8,9 +8,9 @@ use Lingoda\BrazeBundle\Api\Object\Event;
 use Lingoda\BrazeBundle\Api\Object\Purchase;
 use Lingoda\BrazeBundle\Api\Object\Traits\OptionsTrait;
 use Lingoda\BrazeBundle\Api\Object\UserAttributes;
-use Lingoda\BrazeBundle\Validator\Validation;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Validation;
 use Webmozart\Assert\Assert;
 
 class TrackUserDataRequest
@@ -76,9 +76,9 @@ class TrackUserDataRequest
         ;
 
         $resolver
-            ->setAllowedValues('events', Validation::createIsValidCallback(new NotBlank()))
-            ->setAllowedValues('attributes', Validation::createIsValidCallback(new NotBlank()))
-            ->setAllowedValues('purchases', Validation::createIsValidCallback(new NotBlank()))
+            ->setAllowedValues('events', Validation::createIsValidCallable(new NotBlank()))
+            ->setAllowedValues('attributes', Validation::createIsValidCallable(new NotBlank()))
+            ->setAllowedValues('purchases', Validation::createIsValidCallable(new NotBlank()))
         ;
     }
 

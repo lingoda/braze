@@ -33,8 +33,21 @@ final class IdentifierNormalizer implements NormalizerInterface
         return $data;
     }
 
-    public function supportsNormalization($data, ?string $format = null): bool
+    /**
+     * @param array<mixed> $context
+     */
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof IdentifierInterface;
+    }
+
+    /**
+     * @return array<string, bool>
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            IdentifierInterface::class => true,
+        ];
     }
 }

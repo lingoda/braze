@@ -7,9 +7,12 @@ parameters:
     braze_base_uri: !php/const Lingoda\BrazeBundle\Api\BrazeClientInterface::DEFAULT_BASE_URI
 
 framework:
+    annotations:
+        enabled: false
+    test: true
     secret: 's3cr3t'
-    serializer:
-        enable_annotations: true
+    validation:
+        enable_annotations: false
 
     http_client:
         scoped_clients:
@@ -20,9 +23,7 @@ framework:
                 headers:
                     Accept: 'application/json'
                     Content-Type: 'application/json'
-
-# TODO use mock_response_factory once migrated to Symfony >= 5.2 and remove test.http_client_mock
-#        mock_response_factory: Lingoda\BrazeBundle\Test\MockClientCallback
+        mock_response_factory: Lingoda\BrazeBundle\Test\MockClientCallback
 
 lingoda_braze:
     api_key: '%api_key%'
