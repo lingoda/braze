@@ -47,7 +47,7 @@ final class MessagingTest extends BrazeApiTestCase
     public function testSendCampaignMessages(): void
     {
         $this->setMockClientResponses([
-            'campaigns/trigger/send' => new MockResponse((string) json_encode([
+            'https://example.com/campaigns/trigger/send' => new MockResponse((string) json_encode([
                 'dispatch_id' => '74a3d875c1b22f49f3fac4e9eda7fd89',
                 'message' => 'success',
             ], \JSON_THROW_ON_ERROR)),

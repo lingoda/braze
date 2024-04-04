@@ -26,7 +26,7 @@ final class UsersTest extends BrazeApiTestCase
     public function testTrack(): void
     {
         $this->setMockClientResponses([
-            'users/track' => $this->createJsonMockResponse([
+            'https://example.com/users/track' => $this->createJsonMockResponse([
                 'message' => 'success',
                 'events_processed' => 1,
             ]),
@@ -49,7 +49,7 @@ final class UsersTest extends BrazeApiTestCase
     public function testEventTracking(): void
     {
         $this->setMockClientResponses([
-            'users/track' => $this->createJsonMockResponse([
+            'https://example.com/users/track' => $this->createJsonMockResponse([
                 'message' => 'success',
                 'events_processed' => 2,
             ]),
@@ -75,14 +75,14 @@ final class UsersTest extends BrazeApiTestCase
     public function testSameAttributeValueIsSentOnce(): void
     {
         $this->setMockClientResponses([
-            'users/track' => $this->createJsonMockResponse([
+            'https://example.com/users/track' => $this->createJsonMockResponse([
                 'message' => 'success',
                 'events_processed' => 1,
             ]),
         ]);
 
         /** @var InMemoryStorage $memoryStore */
-        $memoryStore = self::$container->get('test.delta_in_memory_store');
+        $memoryStore =self::getContainer()->get('test.delta_in_memory_store');
 
         self::assertEmpty($memoryStore->getData());
 

@@ -10,13 +10,13 @@ use Lingoda\BrazeBundle\Api\Constants\LanguageCodes;
 use Lingoda\BrazeBundle\Api\Constants\SubscriptionType;
 use Lingoda\BrazeBundle\Api\Object\Property\TrackableObjectProperties;
 use Lingoda\BrazeBundle\Api\Object\Property\UserAttributesProperties;
-use Lingoda\BrazeBundle\Validator\Constraints\AtLeastOneOf;
-use Lingoda\BrazeBundle\Validator\Constraints\Sequentially;
-use Lingoda\BrazeBundle\Validator\Validation;
+use Symfony\Component\Validator\Validation;
 use ReflectionClass;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\AtLeastOneOf;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Count;
+use Symfony\Component\Validator\Constraints\Sequentially;
 use Symfony\Component\Validator\Constraints\Type;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Webmozart\Assert\Assert;
@@ -193,7 +193,7 @@ class UserAttributes extends TrackableObject
      */
     protected function createCustomAttributesValidationCallback(): callable
     {
-        return Validation::createIsValidCallback(
+        return Validation::createIsValidCallable(
             new AtLeastOneOf([
                 new Type([
                     'bool',

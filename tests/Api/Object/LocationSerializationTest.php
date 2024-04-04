@@ -11,6 +11,6 @@ final class LocationSerializationTest extends SerializationTestCase
 {
     public function testSerialization(): void
     {
-        self::assertSame('{"latitude":12,"longitude":46}', $this->json(new Location(12, 46)));
+        self::assertSame('{"latitude":12.1,"longitude":46.1}', $this->json(new Location(12.1, 46.1)));
     }
 }

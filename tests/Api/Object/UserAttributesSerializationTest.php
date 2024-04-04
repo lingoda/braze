@@ -73,7 +73,7 @@ final class UserAttributesSerializationTest extends SerializationTestCase
             new UserAttributes([
                 'external_id' => $externalId,
                 'country' => 'DE',
-                'current_location' => new Location(12, 13),
+                'current_location' => new Location(12.1, 13.1),
                 'date_of_first_session' => $now,
                 'date_of_last_session' => $now,
                 'dob' => '1970-01-01',
@@ -111,8 +111,8 @@ final class UserAttributesSerializationTest extends SerializationTestCase
                 'external_id' => 'external-id',
                 'country' => 'DE',
                 'current_location' => [
-                    'latitude' => 12,
-                    'longitude' => 13,
+                    'latitude' => 12.1,
+                    'longitude' => 13.1,
                 ],
                 'date_of_first_session' => $now->format(CarbonImmutable::ATOM),
                 'date_of_last_session' => $now->format(CarbonImmutable::ATOM),

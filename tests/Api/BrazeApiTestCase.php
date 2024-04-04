@@ -28,18 +28,18 @@ abstract class BrazeApiTestCase extends KernelTestCase
         parent::setUp();
         self::bootKernel();
 
-        $brazeApi = self::$container->get('test.braze_api');
+        $brazeApi = self::getContainer()->get('test.braze_api');
         self::assertInstanceOf(BrazeApiInterface::class, $brazeApi);
         $this->brazeApi = $brazeApi;
 
         /** @var string $appId */
-        $appId = self::$container->getParameter('app_id');
+        $appId = self::getContainer()->getParameter('app_id');
         $this->appId = new AppId($appId);
     }
 
     protected function mockHttpClient(): void
     {
-        $brazeApi = self::$container->get('test.mock.braze_api');
+        $brazeApi =self::getContainer()->get('test.mock.braze_api');
         self::assertInstanceOf(BrazeApiInterface::class, $brazeApi);
         $this->brazeApi = $brazeApi;
     }

@@ -13,19 +13,13 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
  */
 class ApiUserTrackResponse extends ApiResponse
 {
-    /**
-     * @SerializedName("attributes_processed")
-     */
+    #[SerializedName('attributes_processed')]
     private int $attributesProcessed = 0;
 
-    /**
-     * @SerializedName("events_processed")
-     */
+    #[SerializedName('events_processed')]
     private int $eventsProcessed = 0;
 
-    /**
-     * @SerializedName("purchases_processed")
-     */
+    #[SerializedName('purchases_processed')]
     private int $purchasesProcessed = 0;
 
     public function __construct(string $message = self::MESSAGE_SUCCESS, array $errors = [])
