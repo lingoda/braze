@@ -215,7 +215,7 @@ class UserAttributes extends TrackableObject
     {
         Assert::false(
             \in_array($attribute, $this->getDefaultUserAttributes(), true),
-            "'${attribute}' is a default user attribute. Consider using something else for custom attribute name."
+            "'$attribute' is a default user attribute. Consider using something else for custom attribute name."
         );
 
         Assert::keyNotExists($this->getOptions(), $attribute);
