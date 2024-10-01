@@ -6,6 +6,7 @@ namespace Lingoda\BrazeBundle\Api;
 
 use Lingoda\BrazeBundle\Api\Endpoint\Export;
 use Lingoda\BrazeBundle\Api\Endpoint\Messaging;
+use Lingoda\BrazeBundle\Api\Endpoint\SubscriptionGroups;
 use Lingoda\BrazeBundle\Api\Endpoint\Users;
 
 interface BrazeApiInterface
@@ -15,4 +16,6 @@ interface BrazeApiInterface
     public function messaging(): Messaging;
 
     public function export(): Export;
+
+    public function subscriptionGroups(): SubscriptionGroups;
 }
