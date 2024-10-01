@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Lingoda\BrazeBundle\Api\Endpoint;
 
-use Lingoda\BrazeBundle\Api\BrazeClientInterface;
 use Lingoda\BrazeBundle\Api\Constants\SubscriptionType;
-use Lingoda\BrazeBundle\Api\Endpoint\Endpoint;
 use Lingoda\BrazeBundle\Api\Exception\HttpException;
 use Lingoda\BrazeBundle\Api\Object\ExternalId;
 use Lingoda\BrazeBundle\Api\Object\SubscriptionGroupId;
@@ -20,11 +18,6 @@ use Lingoda\BrazeBundle\Api\Response\ApiResponseInterface;
 class SubscriptionGroups extends Endpoint
 {
 	private const BASE_ENDPOINT = 'subscriptions';
-
-	public function __construct(BrazeClientInterface $client)
-	{
-		parent::__construct($client);
-	}
 
 	/**
 	 * Use this endpoint to update user subscription status for a specific subscription group

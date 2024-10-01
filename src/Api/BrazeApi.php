@@ -6,7 +6,6 @@ namespace Lingoda\BrazeBundle\Api;
 
 use Lingoda\BrazeBundle\Api\Endpoint\Export;
 use Lingoda\BrazeBundle\Api\Endpoint\Messaging;
-use Lingoda\BrazeBundle\Api\Endpoint\Subscription;
 use Lingoda\BrazeBundle\Api\Endpoint\SubscriptionGroups;
 use Lingoda\BrazeBundle\Api\Endpoint\Users;
 
