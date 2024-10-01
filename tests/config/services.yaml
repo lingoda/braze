@@ -29,12 +29,18 @@ services:
         arguments:
             - '@test.mock.braze_client'
 
+    test.mock.braze_api_subscription_groups_endpoint:
+        class: Lingoda\BrazeBundle\Api\Endpoint\SubscriptionGroups
+        arguments:
+            - '@test.mock.braze_client'
+
     test.mock.braze_api:
         class: Lingoda\BrazeBundle\Api\BrazeApi
         arguments:
             - '@test.mock.braze_api_users_endpoint'
             - '@test.mock.braze_api_messaging_endpoint'
             - '@test.mock.braze_api_export_endpoint'
+            - '@test.mock.braze_api_subscription_groups_endpoint'
 
     test.mock.braze_client:
         class: Lingoda\BrazeBundle\Api\BrazeClient
