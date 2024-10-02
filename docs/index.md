@@ -19,3 +19,7 @@ See documentation [new_alias.md](new_alias.md)
 ## Identify Users
 
 See documentation [identify_users.md](identify_users.md)
+
+## Set subscription group status
+
+See documentation [subscription_groups](subscription_groups.md)

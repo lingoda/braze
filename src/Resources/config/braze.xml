@@ -18,6 +18,7 @@
             <argument type="service" id="lingoda_braze.endpoint.users"/>
             <argument type="service" id="lingoda_braze.endpoint.messaging"/>
             <argument type="service" id="lingoda_braze.endpoint.export"/>
+            <argument type="service" id="lingoda_braze.endpoint.subscription_groups"/>
         </service>
         <service id="lingoda_braze.default_http_client" class="Lingoda\BrazeBundle\Api\BrazeHttpClientFactory">
             <factory class="Lingoda\BrazeBundle\Api\BrazeHttpClientFactory" method="create"/>
@@ -53,6 +54,9 @@
             <argument type="service" id="lingoda_braze.client"/>
         </service>
         <service id="lingoda_braze.endpoint.export" class="Lingoda\BrazeBundle\Api\Endpoint\Export">
+            <argument type="service" id="lingoda_braze.client"/>
+        </service>
+        <service id="lingoda_braze.endpoint.subscription_groups" class="Lingoda\BrazeBundle\Api\Endpoint\SubscriptionGroups">
             <argument type="service" id="lingoda_braze.client"/>
         </service>
 
