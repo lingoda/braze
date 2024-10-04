@@ -17,18 +17,20 @@ use Lingoda\BrazeBundle\Api\Response\ApiResponseInterface;
  */
 class SubscriptionGroups extends Endpoint
 {
-	private const BASE_ENDPOINT = 'subscriptions';
+	private const BASE_ENDPOINT = 'subscription';
 
 	/**
 	 * Use this endpoint to update user subscription status for a specific subscription group
 	 *
 	 * @see https://www.braze.com/docs/api/endpoints/subscription_groups/post_update_user_subscription_group_status
 	 *
+	 * @param SubscriptionType::* $state
+	 *
 	 * @throws HttpException
 	 */
 	public function setStatus(
 		SubscriptionGroupId $subscriptionGroupId,
-		SubscriptionType $state,
+		string $state,
 		ExternalId $externalId,
 		string $phone
 	): ApiResponseInterface
@@ -36,12 +38,10 @@ class SubscriptionGroups extends Endpoint
 		return $this->client->post(
 			self::BASE_ENDPOINT . '/status/set',
 			[
-				'attributes' => [
-					'external_id' => $externalId,
-					'phone' => $phone,
-					'subscription_group_id' => $subscriptionGroupId,
-					'subscription_state' => $state
-				],
+				'external_id' => $externalId,
+				'phone' => $phone,
+				'subscription_group_id' => $subscriptionGroupId,
+				'subscription_state' => $state
 			]
 		);
 	}
