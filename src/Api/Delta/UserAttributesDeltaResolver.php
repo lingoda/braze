@@ -9,6 +9,7 @@ use Lingoda\BrazeBundle\Api\Object\Property\TrackableObjectProperties;
 use Lingoda\BrazeBundle\Api\Object\Property\UserAttributesProperties;
 use Lingoda\BrazeBundle\Api\Object\Twitter;
 use Lingoda\BrazeBundle\Api\Object\UserAttributes;
+use Psr\Log\LoggerInterface;
 use ReflectionClass;
 use Webmozart\Assert\Assert;
 
@@ -24,12 +25,17 @@ class UserAttributesDeltaResolver
     private StorageInterface $deltaStore;
     private IdentifierResolver $identifierResolver;
     private AttributeEncoder $attributeEncoder;
+    private LoggerInterface $logger;
 
-    public function __construct(StorageInterface $store, IdentifierResolver $identifierResolver)
-    {
+    public function __construct(
+        StorageInterface $store,
+        IdentifierResolver $identifierResolver,
+        LoggerInterface $logger
+    ) {
         $this->deltaStore = $store;
         $this->identifierResolver = $identifierResolver;
         $this->attributeEncoder = new AttributeEncoder();
+        $this->logger = $logger;
     }
 
     /**
@@ -75,6 +81,15 @@ class UserAttributesDeltaResolver
         }
 
         $this->deltaStore->write($id, $allOptions);
+
+        $this->logger->info(
+            self::class . '::storeDeltaAttributes',
+            [
+                'id' => $id,
+                'storedOptions' => $storedOptions,
+                'allOptions' => $allOptions
+            ]
+        );
     }
 
     /**
