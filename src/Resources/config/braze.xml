@@ -67,6 +67,7 @@
         <service id="lingoda_braze.delta.user_attributes_delta_resolver" class="Lingoda\BrazeBundle\Api\Delta\UserAttributesDeltaResolver">
             <argument type="service" id="Lingoda\BrazeBundle\Api\Delta\StorageInterface"/>
             <argument type="service" id="lingoda_braze.delta.identifier_resolver"/>
+            <argument type="service" id="logger"/>
         </service>
 
     </services>

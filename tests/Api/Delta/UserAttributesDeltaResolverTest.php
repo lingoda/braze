@@ -16,6 +16,7 @@ use Lingoda\BrazeBundle\Api\Object\Twitter;
 use Lingoda\BrazeBundle\Api\Object\UserAttributes;
 use Lingoda\BrazeBundle\Tests\Api\Mock\Object\InheritedUserAttributes;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\NullLogger;
 
 final class UserAttributesDeltaResolverTest extends TestCase
 {
@@ -34,7 +35,11 @@ final class UserAttributesDeltaResolverTest extends TestCase
             ->willReturn($attributeEncoder->encode($storedData))
         ;
 
-        $resolver = new UserAttributesDeltaResolver($storeMock, new IdentifierResolver());
+        $resolver = new UserAttributesDeltaResolver(
+            $storeMock,
+            new IdentifierResolver(),
+            new NullLogger()
+        );
         $resolvedAttributes = $resolver->resolveDeltaAttributes($userAttributes);
 
         self::assertEquals($expectedOptions, $resolvedAttributes->getOptions());
@@ -62,7 +67,11 @@ final class UserAttributesDeltaResolverTest extends TestCase
             ->willReturn($attributeEncoder->encode($storedData))
         ;
 
-        $resolver = new UserAttributesDeltaResolver($storeMock, new IdentifierResolver());
+        $resolver = new UserAttributesDeltaResolver(
+            $storeMock,
+            new IdentifierResolver(),
+            new NullLogger()
+        );
         $resolvedAttributes = $resolver->resolveDeltaAttributes($userAttributes);
 
         self::assertEquals($expectedOptions, $resolvedAttributes->getOptions());

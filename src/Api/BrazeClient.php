@@ -124,6 +124,17 @@ final class BrazeClient implements BrazeClientInterface
 
             return $this->responseProcessor->process($response, $apiResponseClass);
         } catch (ExceptionInterface $e) {
+            $this->logger->error(self::class . '::httpException', [
+                'url' => $url,
+                'method' => $method,
+                'body' => $data['body'] ?? null,
+                'query' => $data['query'] ?? null,
+                'debug' => [
+                    'message' => $e->getMessage(),
+                    'code' => $e->getCode(),
+                    'trace' => $e->getFile() . ':' . $e->getLine()
+                ]
+            ]);
             throw HttpException::create($e);
         }
     }
