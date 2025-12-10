@@ -93,6 +93,39 @@ class UserAttributesDeltaResolver
     }
 
     /**
+     * @param array<int, string> $attributesToRemove
+     */
+    public function removeDeltaAttributes(UserAttributes $userAttributes, array $attributesToRemove): void
+    {
+        $id = $this->identifierResolver->resolve($userAttributes);
+        Assert::notNull($id);
+
+        $storedOptions = $tempOptions = $this->getStoredOptions($userAttributes);
+        $removedOptions = [];
+
+        if (is_array($tempOptions) && !empty($attributesToRemove)) {
+            foreach ($attributesToRemove as $attribute) {
+                if (array_key_exists($attribute, $tempOptions)) {
+                    unset($tempOptions[$attribute]);
+                    $removedOptions[] = $attribute;
+                }
+            }
+
+            $this->deltaStore->write($id, $tempOptions);
+
+            $this->logger->info(
+                self::class . '::removeDeltaAttributes',
+                [
+                    'id' => $id,
+                    'storedOptions' => $storedOptions,
+                    'newOptions' => $tempOptions,
+                    'removedOptions' => $removedOptions,
+                ]
+            );
+        }
+    }
+
+    /**
      * @param array<string, mixed> $options
      * @param array<string, mixed> $storedEncodedOptions
      *
