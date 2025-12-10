@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace spec\Lingoda\BrazeBundle\Api\Response;
 
+use Lingoda\BrazeBundle\Api\Object\Export\UserData\User;
 use Lingoda\BrazeBundle\Api\Response\ApiUserExportResponse;
 use PhpSpec\ObjectBehavior;
 
@@ -19,6 +20,7 @@ class ApiUserExportResponseSpec extends ObjectBehavior
         $this->getMessage()->shouldBeEqualTo('success');
 
         $this->getErrors()->shouldBe($errors);
-        $this->getUsers()->shouldBe($users);
+        $this->getUsersRaw()->shouldBe($users);
+        $this->getUsers()->shouldBeLike(array_map(User::fromArray(...), $users));
     }
 }

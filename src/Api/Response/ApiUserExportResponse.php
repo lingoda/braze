@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace Lingoda\BrazeBundle\Api\Response;
 
+use Lingoda\BrazeBundle\Api\Object\Export\UserData\User;
+
 class ApiUserExportResponse extends ApiResponse
 {
     /**
@@ -21,9 +23,17 @@ class ApiUserExportResponse extends ApiResponse
     }
 
     /**
-     * @return mixed[]
+     * @return User[]
      */
     public function getUsers(): array
+    {
+        return array_map(User::fromArray(...), $this->users);
+    }
+
+    /**
+     * @return mixed[]
+     */
+    public function getUsersRaw(): array
     {
         return $this->users;
     }
