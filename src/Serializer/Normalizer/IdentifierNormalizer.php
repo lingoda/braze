@@ -13,7 +13,10 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
  */
 final class IdentifierNormalizer implements NormalizerInterface
 {
-    public function normalize($object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    /**
+     * @return string|array<string, mixed>
+     */
+    public function normalize($object, ?string $format = null, array $context = []): array|string
     {
         if (!$object instanceof IdentifierInterface) {
             throw new InvalidArgumentException(sprintf('The object must implement the %s interface', IdentifierInterface::class));
